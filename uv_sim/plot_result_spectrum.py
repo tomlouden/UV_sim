@@ -62,12 +62,12 @@ def main():
 
   low_lim_mloss = np.percentile(out_mloss, 50+(99.73/2.0),axis=0)
 
-  print low_lim_mloss
+  print(low_lim_mloss)
 
-  print '3 sig upper limit is',round((10**low_lim_mloss/1e10),2),' x 10^10 g/s'
-  print round((8*10**10)/(10**low_lim_mloss),2)
+  print('3 sig upper limit is',round((10**low_lim_mloss/1e10),2),' x 10^10 g/s')
+  print(round((8*10**10)/(10**low_lim_mloss),2))
 
-  print one_sig_flux
+  print(one_sig_flux)
 
   one_sig_mloss_u =  10**one_sig_mloss
 
@@ -75,7 +75,7 @@ def main():
   one_sig_mloss_u[2] = round((one_sig_mloss_u[2] - one_sig_mloss_u[0])/ 1e10,2)
   one_sig_mloss_u[0] = round((one_sig_mloss_u[0])/ 1e10,2)
 
-  print one_sig_mloss_u
+  print(one_sig_mloss_u)
 
 #  one_sig_mloss[1] = round(one_sig_mloss[1] - one_sig_mloss[0],2)
 #  one_sig_mloss[2] = round(one_sig_mloss[2] - one_sig_mloss[0],2)
@@ -164,7 +164,7 @@ def main():
     pkl_file_euv = open(abund+'_abund_spectra_bin/spectra_'+'XUV_sanz_b'+'_'+str(t[i])+'_'+str(log10(density[i]))+'.pkl', 'rb')
     euv_grid[i] = array(list(pickle.load(pkl_file_euv)))
     temp_contribution += [flux_breakdown(euv_grid[i],wvl_euv,bands=bands)]
-    print t[i], em[i]
+    print(t[i], em[i])
     w_temp_contribution += [flux_breakdown(euv_grid[i]*10**em[i],wvl_euv,bands=bands)]
 
 
@@ -262,8 +262,8 @@ def main():
 
   best_em = chebyshev(best_x,t)
 
-  print best_x
-  print best_em - log10(dt)
+  print(best_x)
+  print(best_em - log10(dt))
 
 # recorded solar emission measure
 
@@ -283,32 +283,32 @@ def main():
 
   plot_frac_errors(em,spec_dict,t)
 
-  print 'hd209'
-  print 'x_counts', 'xray_flux','rosat_flux', 'XUV_flux', 'sanz_euv_flux', 'high_euv_flux','all_euv_flux', 'beta'
-  print return_fluxes(em,t,xmm_temp,m_xmm_temp,bands_xmm_temp,xray_temp,rosat_temp,XUV_temp,sanz_euv_temp,high_euv_temp,all_euv_temp,factor)
-  print 'sun'
-  print 'x_counts', 'xray_flux','rosat_flux', 'XUV_flux', 'sanz_euv_flux', 'high_euv_flux','all_euv_flux', 'beta'
+  print('hd209')
+  print('x_counts', 'xray_flux','rosat_flux', 'XUV_flux', 'sanz_euv_flux', 'high_euv_flux','all_euv_flux', 'beta')
+  print(return_fluxes(em,t,xmm_temp,m_xmm_temp,bands_xmm_temp,xray_temp,rosat_temp,XUV_temp,sanz_euv_temp,high_euv_temp,all_euv_temp,factor))
+  print('sun')
+  print('x_counts', 'xray_flux','rosat_flux', 'XUV_flux', 'sanz_euv_flux', 'high_euv_flux','all_euv_flux', 'beta')
   u_f = return_fluxes(em2,t,xmm_temp,m_xmm_temp,bands_xmm_temp,xray_temp,rosat_temp,XUV_temp,sanz_euv_temp,high_euv_temp,all_euv_temp,factor)
-  print u_f
+  print(u_f)
 
   f = [t < 5.7 ]
-  print 'hd209'
-  print 'x_counts', 'xray_flux','rosat_flux', 'XUV_flux', 'sanz_euv_flux', 'high_euv_flux','all_euv_flux', 'beta'
-  print return_fluxes(em[f],t[f],xmm_temp,m_xmm_temp,bands_xmm_temp,xray_temp,rosat_temp,XUV_temp,sanz_euv_temp,high_euv_temp,all_euv_temp,factor)
-  print 'sun'
-  print 'x_counts', 'xray_flux','rosat_flux', 'XUV_flux', 'sanz_euv_flux', 'high_euv_flux','all_euv_flux', 'beta'
+  print('hd209')
+  print('x_counts', 'xray_flux','rosat_flux', 'XUV_flux', 'sanz_euv_flux', 'high_euv_flux','all_euv_flux', 'beta')
+  print(return_fluxes(em[f],t[f],xmm_temp,m_xmm_temp,bands_xmm_temp,xray_temp,rosat_temp,XUV_temp,sanz_euv_temp,high_euv_temp,all_euv_temp,factor))
+  print('sun')
+  print('x_counts', 'xray_flux','rosat_flux', 'XUV_flux', 'sanz_euv_flux', 'high_euv_flux','all_euv_flux', 'beta')
   u_f_2 = return_fluxes(em2[f],t[f],xmm_temp,m_xmm_temp,bands_xmm_temp,xray_temp,rosat_temp,XUV_temp,sanz_euv_temp,high_euv_temp,all_euv_temp,factor)
-  print u_f_2
+  print(u_f_2)
 
   orb_factor = pi*((rsun/semi))**2.0
 
   c = np.log10(orb_factor) - np.log10(lum)
 
-  print c
+  print(c)
 
-  print 'AT ORBITAL DISTANCE'
-  print 'x_counts', 'xray_flux','rosat_flux', 'XUV_flux', 'sanz_euv_flux', 'high_euv_flux','all_euv_flux', 'beta'
-  print return_fluxes(em,t,xmm_temp,m_xmm_temp,bands_xmm_temp,xray_temp+c,rosat_temp+c,XUV_temp+c,sanz_euv_temp+c,high_euv_temp+c,all_euv_temp+c,factor)
+  print('AT ORBITAL DISTANCE')
+  print('x_counts', 'xray_flux','rosat_flux', 'XUV_flux', 'sanz_euv_flux', 'high_euv_flux','all_euv_flux', 'beta')
+  print(return_fluxes(em,t,xmm_temp,m_xmm_temp,bands_xmm_temp,xray_temp+c,rosat_temp+c,XUV_temp+c,sanz_euv_temp+c,high_euv_temp+c,all_euv_temp+c,factor))
 
 #  sun_fluxes = [u_f[0],u_f[3],u_f[7],u_f[5],u_f[4],u_f[2],u_f[6],u_f[1]]
 
@@ -324,10 +324,10 @@ def plot_frac_errors(em,spec_dict,t):
 
   namelist = set(spec_dict['name'])
 
-  print namelist
+  print(namelist)
 
   for ion in namelist:
-    print ion, sum(output[np.array(spec_dict['name']) == ion]) / sum(spec_dict['flux'][np.array(spec_dict['name']) == ion])
+    print(ion, sum(output[np.array(spec_dict['name']) == ion]) / sum(spec_dict['flux'][np.array(spec_dict['name']) == ion]))
 
 def mloss_histogram(out_mloss):
   plt.hist(out_mloss,histtype='step',color='k')
@@ -341,7 +341,7 @@ def flux_histograms(out_fluxes,plot_name,solar):
 
   with open(plot_name+'_out_fluxes','w') as outfile:
     outline = 'bandname solar_value fit_value p_err n_err mean_solar sanz2011'
-    print outline
+    print(outline)
     outfile.write(outline+'\n')
 
   for flux in out_fluxes:
@@ -391,7 +391,7 @@ def make_histogram(flux,name,label_x,chain_name,solar):
       outline += ' '+str(round(mean_solar_x,2))+' '+str(round(sanz_x,2))
     if 'out_XUV' in name:
       outline += ' '+str(round(mean_solar_XUV,2))+' '+str(round(sanz_XUV,2))
-    print outline
+    print(outline)
     outfile.write(outline+'\n')
   plt.hist(flux,histtype='step',color='k')
   plt.xlabel(label_x)
@@ -404,8 +404,8 @@ def m_xmm_lim(m_xmm_temp,t,flux):
   return log10(flux) - m_xmm_temp
 
 def bands_xmm_lim(bands_xmm_temp,t,flux):
-  print log10(flux),log10(bands_xmm_temp)
-  return log10(flux) - log10(bands_xmm_temp)
+  print(log10(flux),log10(bands_xmm_temp))
+  return(log10(flux) - log10(bands_xmm_temp))
 
 def plot_result(all_x,lp,dem_file,plot_name,factor,t,density,abund,m_xmm_temp,bands_xmm_temp,nh,solar=[]):
 
@@ -506,7 +506,7 @@ def plot_result(all_x,lp,dem_file,plot_name,factor,t,density,abund,m_xmm_temp,ba
     s = 10
     result_ep = log10(((1/result_pn)**(s-1) + (1/result_m1)**(s-1) + (1/result_m2)**(s-1)) / ((1/result_pn)**s + (1/result_m1)**s + (1/result_m2)**s))
 
-    print result_ep
+    print(result_ep)
     emplot.plot(t[t>(divide-0.0)],((10.0**result_ep)/dt)[t>(divide-0.0)],colours[i])
     emplot.text(t[-1], ((10.0**result_ep)/dt)[-1], key,**font)
     i += 1
@@ -663,7 +663,7 @@ def plot_euv_spec(t,em,distance,semi,euv_grid,wvl_euv,rsun,msun,mp,rp,NH,plot_na
 
   show()
 
-  print 'UV CONSTRAINED CONTRIBUTION'
+  print('UV CONSTRAINED CONTRIBUTION')
   xflux(t,em,sum_uv,wvl_euv,rsun,msun,distance,mp,rp,semi)
 
   plot(wvl_euv,sum_uv,'g')
@@ -671,7 +671,7 @@ def plot_euv_spec(t,em,distance,semi,euv_grid,wvl_euv,rsun,msun,mp,rp,NH,plot_na
   ylabel('Flux (ergs/s/$\AA$/cm$^2$)', **font)
   xlabel('Wavelength ($\AA$)', **font)
 
-  print 'X-RAY CONSTRAINED CONTRIBUTION'
+  print('X-RAY CONSTRAINED CONTRIBUTION')
   xflux(t,em,sum_x,wvl_euv,rsun,msun,distance,mp,rp,semi)
 
   plot(wvl_euv,sum_x,'r')
@@ -781,7 +781,7 @@ def plot_dem(fname,dt,divide):
       else:
         ax1.text(data[i]['tmax']+0.03, data[i]['em_03']*0.2, outplotname)
     else:
-      print data[i]['name'], data[i]['tmax'], 'em03 could not be calculated'
+      print(data[i]['name'], data[i]['tmax'], 'em03 could not be calculated')
 #    text(4.3,3e28, 'UV line constrained')
 #    text(6.5,3e28, 'X-ray flux constrained')
 

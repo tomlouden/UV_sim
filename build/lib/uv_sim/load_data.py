@@ -256,7 +256,7 @@ def old_create_responses(t,density,abund,factor,rsun,msun,distance,mp,rp,semi,ru
 
   xray_error = np.sqrt(X_ray_counts)/xray_weight
 
-  print np.log10(X_ray_counts/np.array(xmm_temp))
+  print(np.log10(X_ray_counts/np.array(xmm_temp)))
 
   output = open('xmm_response_'+run_name+'.pkl', 'wb')
   pickle.dump(xmm_temp, output)	
@@ -295,12 +295,12 @@ def old_create_responses(t,density,abund,factor,rsun,msun,distance,mp,rp,semi,ru
     xmm_temp[1] = np.array(xmm_temp[1])
     xmm_temp[2] = np.array(xmm_temp[2])
 
-    print b, xmm_temp
+    print(b, xmm_temp)
     output = open('xmm_response_'+run_name+b+'.pkl', 'wb')
     pickle.dump(xmm_temp, output) 
 
 
-  print 'done!'
+  print('done!')
 
   maxwvl = 920
   wvl_euv = np.linspace(5,maxwvl,(maxwvl-5)*10)

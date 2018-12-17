@@ -63,7 +63,7 @@ def main():
 
 #  the geometric factor which ensures the total fluxes are correct
   factor = geometry*((rsun/distance))**2.0
-  print 'factor is ', factor
+  print('factor is ', factor)
 
   cut =[0,25.0]
 
@@ -103,14 +103,14 @@ def main():
 #  if necessary, here's where new models are calculated
   new_sim = True
   if new_sim == True:
-    print 'about to start'
+    print('about to start')
 #    grid_control('1_b',t,wvl1,density,proc)
 #    grid_control('2_b',t,wvl2,density,proc)
     grid_control('xray_b',t,wvl_xray,density,proc)
     grid_control('XUV_sanz_b',t,wvl_euv,density,proc)
 #    grid_control('lyman_b',t,wvl_ly,density,proc)
 #    grid_control('solar_',t,wvl_solar,density,proc)
-    print 'done'
+    print('done')
 
   # load the response matrices...
   rsp = load_response(data_dir + 'PN.rmf')
@@ -285,16 +285,16 @@ def main():
 
   xray_error = sqrt(X_ray_counts)/xray_weight
 
-  print log10(X_ray_counts/array(xmm_temp))
+  print(log10(X_ray_counts/array(xmm_temp)))
 
   xlim = x_limit(t,density,X_ray_counts,30e3,factor)
 
-  print xlim
+  print(xlim)
 
   output = open('xmm_response_b.pkl', 'wb')
   pickle.dump(xmm_temp, output)	
 
-  print 'done!'
+  print('done!')
 
   euv_temp = []
   for i in range(0,len(t)):
@@ -365,7 +365,7 @@ def main():
 
   plot_dem(dem_file,dt)
 
-  print list(x)
+  print(list(x))
   
   emeasure = em
 
@@ -390,7 +390,7 @@ def main():
 
   print('THIS IS THE EUV FLUX')
 
-  print 'between', min(wvl_euv), min(wvl_euv)
+  print('between', min(wvl_euv), min(wvl_euv))
 
   xflux(t,em,sum_euv,wvl_euv,rsun,msun,distance,mp,rp,semi)
 
@@ -411,7 +411,7 @@ def main():
 
   show()
 
-  print 'UV CONSTRAINED CONTRIBUTION'
+  print('UV CONSTRAINED CONTRIBUTION')
   xflux(t,em,sum_uv,wvl_euv,rsun,msun,distance,mp,rp,semi)
 
   plot(wvl_euv,sum_uv,'g')
@@ -419,7 +419,7 @@ def main():
   ylabel('Flux (ergs/s/$\AA$/cm$^2$)', **font)
   xlabel('Wavelength ($\AA$)', **font)
 
-  print 'X-RAY CONSTRAINED CONTRIBUTION'
+  print('X-RAY CONSTRAINED CONTRIBUTION')
   xflux(t,em,sum_x,wvl_euv,rsun,msun,distance,mp,rp,semi)
 
   plot(wvl_euv,sum_x,'r')
@@ -436,7 +436,7 @@ def main():
 
   xlabel('Temperature (log(T/K))')
 
-  print temp_cont
+  print(temp_cont)
   show()
 
 main()
