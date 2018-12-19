@@ -10,6 +10,8 @@ def register_lines(fname,star_dist,star_radius, density):
 
 	input_dict = ion_dict_from_file(fname)
 
+	print(input_dict)
+
 	dict_list=[]
 
 	for i in range(len(input_dict)):
@@ -21,6 +23,8 @@ def register_lines(fname,star_dist,star_radius, density):
 	output = open(fname+'_line_data.pkl', 'wb')
 
 	pickle.dump(dict_list, output)	
+	print("done?")
+
 
 def load_specdata(listfile):
 
@@ -66,6 +70,9 @@ def ion_dict_from_file(fname):
 		is_mult = (len(mult_tag) > 0 )
 
 		tmax = find_tm(name)
+
+		print(tmax,"ok")
+
 		dict = {'name':name,'flux':flux,'err':f_err,'tmax':tmax,'wavelength':[wavelength],'mult_tag':mult_tag}
 		repeat = False
 		for x in dict_list:
@@ -95,7 +102,11 @@ def find_tm(ion_name):
 
 	t = 10**(3.8+ 0.01*np.arange(400))
 
+	print(ion_name,"yeeah")
+
 	ion = ch.ion(ion_name, temperature=t)
+
+	print(ion,"yeeah")
 
 	ioneq = ion.IoneqOne
 	W =  h*c*ion.Elvlc['ecm'][ion_state - 1]*100
@@ -114,7 +125,12 @@ def match_line(ion_name, wvls, s_flux, tmax, density):
 	npoints = 1000
 	t = 10**(np.linspace(lowtemp,hightemp,npoints))
 
+	print("HERE WE GO")
+
 	ion_n = ch.ion(ion_name, temperature=t, eDensity=density)
+
+	print("LET'S GO")
+
 	ion_n.gofnt(wvlRange=[min(wvls)-1,max(wvls)+1])
 
 	return ion_n.Gofnt
