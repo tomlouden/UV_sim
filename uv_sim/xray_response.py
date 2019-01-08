@@ -121,7 +121,7 @@ def mass_loss_rate(t,em,sum_spec,wvl,rsun,msun,distance,m_p,r_p,semi,wvl_low=100
 
     return np.log10(int_flux), m_loss
 
-def generate_spectra(abund,t,density,wvl,response_name,tag,NH='none',proc=4):
+def generate_spectra(abund,t,density,wvl,response_name,tag,NH='none',proc=4,xray_distance_factor=1):
 
   import chianti.filters as chfilters
   import chianti.core as ch
@@ -153,7 +153,7 @@ def generate_spectra(abund,t,density,wvl,response_name,tag,NH='none',proc=4):
     pkl_file_x = open('spectra_bin/'+abund+'/spectra_'+tag+'_'+str(t[i])+'_'+str(np.log10(density[i]))+'.pkl', 'rb')
     x_grid[i] = pickle.load(pkl_file_x)
 
-  fold_xrays(rsp,x_grid,wvl,t,density,cut,abund,NH)
+  fold_xrays(rsp,x_grid,wvl,t,density,cut,abund,NH,xray_distance_factor)
 
 def absorption(NH,spectrum,spec_type='Spectrum'):
   import astropy.constants as  const
@@ -222,7 +222,7 @@ def grid_control(tag,t,wvl,density,p,abund,clobber=False):
 
       pickle.dump({'Spectrum':s.Spectrum['intensity'],'FreeFree':s.FreeFree['intensity'],'FreeBound':s.FreeBound['intensity']}, output) 
 
-def fold_xrays(rsp,xgrid,wvl,t,density,cut,abund,NHfile='none',band='',clobber=False):
+def fold_xrays(rsp,xgrid,wvl,t,density,cut,abund,xray_distance_factor,NHfile='none',band='',clobber=False):
 
 
     dir_name = 'spectra_bin/'+abund+'/'
@@ -237,7 +237,7 @@ def fold_xrays(rsp,xgrid,wvl,t,density,cut,abund,NHfile='none',band='',clobber=F
         input_s = xgrid[i]
         if NHfile != 'none':
           input_s = absorption(NHfile,[wvl,input_s])  
-        out_x, out_counts1 = fold_model(rsp,[wvl,input_s],'pn',cut)
+        out_x, out_counts1 = fold_model(rsp,[wvl,input_s],'pn',cut,xray_distance_factor)
         fname = 'spectra_XMM_'+ str(t[i]) +'_'+str(np.log10(density[i]))+band+'nh'+str(NHfile)
         print('writing out')
         pickle.dump(out_x,output)
@@ -247,7 +247,10 @@ def fold_model(rsp,raw_spectrum,name,cut):
   t_response = np.array([0.0]*len(rsp['CHANNEL']))
 
 
-  spectrum = bin_spectrum(raw_spectrum,rsp,cut)
+  plt.plot(raw_spectrum)
+  plt.show()
+
+  spectrum = bin_spectrum(raw_spectrum,rsp,cut,xray_distance_factor)
 
   center_bin = (rsp['ENERG_LO'] + rsp['ENERG_HI'])/2.0
   center_bin2 = (rsp['E_MIN'] + rsp['E_MAX'])/2.0

@@ -245,7 +245,11 @@ def fold_xrays(rsp,xgrid,wvl,t,density,cut,abund,NHfile='none',band='',clobber=F
     direc = glob.glob(dir_name+'*')
 
     for i in range(0,len(t)):
-      fname = 'spectra_bin/'+abund+'/spectra_XMM_'+ str(t[i]) +'_'+str(np.log10(density[i]))+band+'nh'+str(NHfile)+'.pkl'
+#      fname = 'spectra_bin/'+abund+'/spectra_XMM_'+ str(t[i]) +'_'+str(np.log10(density[i]))+band+'nh'+str(NHfile)+'.pkl'
+      fname = "spectra_XMM_{:.2}_{}nh{}.pkl".format(t[i],np.log10(density[i]),NHfile)
+      fname = os.path.join(abund,fname)
+      fname = os.path.join("spectra_bin",fname)
+
       if((fname in direc) & (clobber == False)):
         print(fname+' already exists!')
       else:
